@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="EXPIRES" content="-1" />
+        <meta http-equiv="PRAGMA" content="NO-CACHE" />
+    </head>
+    <body id="root">
+        <h1>TranslatorObserver example</h1>
+        <label>
+            From
+            <select onchange="changeFrom(event)">
+                <option value="">Autodetect</option>
+                <option value="es">Spanish</option>
+                <option value="en">English</option>
+            </select>
+        </label>
+        <label>
+            To
+            <select onchange="changeTo(event)">
+                <option value="es">Spanish</option>
+                <option value="en">English</option>
+            </select>
+        </label>
+        <button onclick="toggleTranslation(event)">Translate</button>
+        <p id="will-change">
+            This content may change if you click in the bottom below.
+            </br>
+            It will be translated automatically while translation is running.
+        </p>
+        <button id="will-update" onclick="changeContent()">Change</button>
+
+        <!-- Loading and initializing the library -->
+        <script src="./dist/translator-observer.dist.js"></script>
+
+        <script>
+            var options = {
+                from: "",
+                to: "es",
+                target: "root",
+                key: "xxx-xxx-xxx-xxx"
+            };
+
+            var translatorObserver = new TranslatorObserver(options);
+        </script>
+
+        <!-- For demostration purposes -->
+        <script>
+            function changeContent() {
+                document.getElementById("will-change").innerHTML =
+                    "<span>The content did change.</br>Now we have different subtree.</span>";
+
+                document.getElementById("will-update").innerText = "Changed";
+            }
+
+            function toggleTranslation(e) {
+                if (translatorObserver.isActive) {
+                    e.target.innerText = "Translate";
+
+                    translatorObserver.stop();
+                } else {
+                    e.target.innerText = "Stop";
+
+                    translatorObserver.start();
+                }
+            }
+
+            function changeFrom(e) {
+                translatorObserver.translator.from = e.target.value;
+            }
+
+            function changeTo(e) {
+                translatorObserver.translator.to = e.target.value;
+            }
+        </script>
+    </body>
+</html>

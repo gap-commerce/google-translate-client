@@ -1,2 +1,3 @@
-# google-translate-client
+# TranslatorObserver
+
 Google Translate Client
