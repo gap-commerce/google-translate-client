@@ -28,17 +28,26 @@
             </br>
             It will be translated automatically while translation is running.
         </p>
-        <button id="will-update" onclick="changeContent()">Change</button>
+        <button id="will-update">Change</button>
+
+        <script>
+            document.getElementById("will-update").addEventListener("click", function(event){
+                document.getElementById("will-change").innerHTML =
+                    "<span>The content did change.</br>Now we have different subtree.</span>";
+
+                event.target.innerText = "Changed";
+            })
+        </script>
 
         <!-- Loading and initializing the library -->
-        <script src="./dist/translator-observer.dist.js"></script>
+        <script src="translator-observer.dist.js"></script>
 
         <script>
             var options = {
                 from: "",
                 to: "es",
                 target: "root",
-                key: "xxx-xxx-xxx-xxx"
+                key: "XXX-XXX-XXX"
             };
 
             var translatorObserver = new TranslatorObserver(options);
@@ -46,13 +55,6 @@
 
         <!-- For demostration purposes -->
         <script>
-            function changeContent() {
-                document.getElementById("will-change").innerHTML =
-                    "<span>The content did change.</br>Now we have different subtree.</span>";
-
-                document.getElementById("will-update").innerText = "Changed";
-            }
-
             function toggleTranslation(e) {
                 if (translatorObserver.isActive) {
                     e.target.innerText = "Translate";
