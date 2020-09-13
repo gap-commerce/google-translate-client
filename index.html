@@ -33,7 +33,7 @@
         <script>
             document.getElementById("will-update").addEventListener("click", function(event){
                 document.getElementById("will-change").innerHTML =
-                    "<span>The content did change.</br>Now we have different subtree.</span>";
+                    "<span>The content did change.</br>Now we have different subtree.</span></br>And it works!";
 
                 event.target.innerText = "Changed";
             })
@@ -47,7 +47,7 @@
                 from: "",
                 to: "es",
                 target: "root",
-                key: "XXX-XXX-XXX"
+                key: "xxx"
             };
 
             var translatorObserver = new TranslatorObserver(options);
