@@ -4,14 +4,7 @@ module.exports = {
     entry: "./index.js",
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "translator-observer.dist.js"
-    },
-    node: {
-        child_process: "empty",
-        fs: "empty",
-        crypto: "empty",
-        net: "empty",
-        tls: "empty"
+        filename: "translator-observer.[hash].dist.js"
     },
     module: {
         rules: [
