@@ -1,10 +1,15 @@
 const path = require("path");
 
 module.exports = {
+    mode: 'development',
+    optimization: {
+        // We no not want to minimize our code.
+        minimize: false
+    },
     entry: "./index.js",
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "translator-observer.[hash].dist.js"
+        filename: "translator-observer.dist.js"
     },
     module: {
         rules: [
@@ -12,7 +17,7 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: "babel-loader"
+                    loader: "babel-loader",
                 }
             }
         ]
