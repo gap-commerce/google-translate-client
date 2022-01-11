@@ -243,24 +243,29 @@ var Dictionary = /*#__PURE__*/function () {
       //       .then(result => result.data); // todo define structure of returned data
       //
       // return call;
-      var storedTrans = [{
+      var ret = [{
         "from": "en",
         "to": "es",
         "translations": [["The content did change.", "El contenido cambió."], ["Now we have different subtree.", "Ahora tenemos un subárbol diferente."], ["And it works!", "¡Y funciona!"], ["TranslatorObserver example", "Ejemplo de TranslatorObserver"], ["From", "Desde"], ["Autodetect", "Detección automática"], ["Spanish", "español"], ["English", "inglés"], ["To", "A"], ["Stop", "Detener"], ["This content may change if you click in the bottom below.", "Este contenido puede cambiar si hace clic en la parte inferior a continuación."], ["It will be translated automatically while translation is running.", "Se traducirá automáticamente mientras se ejecuta la traducción."], ["Change", "Cambio"]]
       }];
-      return storedTrans;
+      return new Promise(function (resolve) {
+        return resolve(ret);
+      });
     }
   }, {
     key: "init",
     value: function init() {
+      var _this = this;
+
       var storageLocal = localStorage.getItem(this.key);
       !storageLocal && (storageLocal = "[]");
       storageLocal = JSON.parse(storageLocal);
-      var storageCloud = this.fetchCloudStored(); // storageCloud.then(); // todo use Promises syntax and replace code below
-
-      storageLocal = this.mergeStorages(storageLocal, storageCloud);
-      storageLocal = JSON.stringify(storageLocal);
-      localStorage.setItem(this.key, storageLocal);
+      var fetchCall = this.fetchCloudStored();
+      fetchCall.then(function (storageCloud) {
+        storageLocal = _this.mergeStorages(storageLocal, storageCloud);
+        storageLocal = JSON.stringify(storageLocal);
+        localStorage.setItem(_this.key, storageLocal);
+      });
     }
   }, {
     key: "fetch",
